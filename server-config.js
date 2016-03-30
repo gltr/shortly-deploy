@@ -27,7 +27,7 @@ app.get('/login', handler.loginUserForm);
 app.post('/login', handler.loginUser);
 app.get('/logout', handler.logoutUser);
 
-app.get('cool', function(req, res) {
+app.get('/cool', function(req, res) {
   res.send(cool());
 });
 
