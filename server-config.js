@@ -1,6 +1,7 @@
 var express = require('express');
 var partials = require('express-partials');
 var util = require('./lib/utility');
+var cool = require('cool-ascii-faces');
 
 var handler = require('./lib/request-handler');
 
@@ -25,6 +26,10 @@ app.post('/links', handler.saveLink);
 app.get('/login', handler.loginUserForm);
 app.post('/login', handler.loginUser);
 app.get('/logout', handler.logoutUser);
+
+app.get('cool', function(req, res) {
+  res.send(cool());
+});
 
 app.get('/signup', handler.signupUserForm);
 app.post('/signup', handler.signupUser);
