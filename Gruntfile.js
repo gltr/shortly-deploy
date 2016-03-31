@@ -40,7 +40,7 @@ module.exports = function(grunt) {
 
     eslint: {
       target: [
-        // Add list of files to lint here
+        'public/dist/superfile.js'
       ]
     },
 
@@ -67,7 +67,13 @@ module.exports = function(grunt) {
     shell: {
       prodServer: {
       },
-      pushLive: {
+      addfiles: {
+        command: 'git add .'
+      },
+      commit: {
+        command: 'git commit -m "grunt deploy auto-commit"'
+      },
+      pushlive: {
       	command: 'git push live master'
       }
     },
@@ -113,18 +119,18 @@ module.exports = function(grunt) {
 
 
   // concatenate and uglify
-  grunt.registerTask('build', [ 'concat', 'uglify' ]);
+  grunt.registerTask('build', [ 'eslint', 'concat', 'uglify' ]);
 
   grunt.registerTask('upload', function(n) {
     if (grunt.option('prod')) {
-      // add your production server task here
+      grunt.task.run(['shell:addfiles', 'shell:commit', 'shell:pushlive']);
     } else {
       grunt.task.run([ 'server-dev' ]);
     }
   });
 
   grunt.registerTask('deploy', [
-    // add your deploy tasks here
+    'build', 'upload'
   ]);
 
 
