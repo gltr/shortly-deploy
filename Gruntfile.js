@@ -63,7 +63,7 @@ module.exports = function(grunt) {
         tasks: ['cssmin']
       }
     },
-
+// Look at this object on day 2
     shell: {
       prodServer: {
       },
