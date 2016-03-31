@@ -51,6 +51,9 @@ module.exports = function(grunt) {
 
     shell: {
       prodServer: {
+      },
+      pushLive: {
+      	command: 'git push live master'
       }
     },
   });
@@ -93,8 +96,8 @@ module.exports = function(grunt) {
     'mochaTest'
   ]);
 
-  grunt.registerTask('build', [
-  ]);
+  // concatenate and uglify
+  grunt.registerTask('build', [ 'shell'  ]);
 
   grunt.registerTask('upload', function(n) {
     if (grunt.option('prod')) {

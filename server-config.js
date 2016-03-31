@@ -28,6 +28,7 @@ app.post('/login', handler.loginUser);
 app.get('/logout', handler.logoutUser);
 
 app.get('/cool', function(req, res) {
+  //res.send('where does this show up?');
   res.send(cool());
 });
 
