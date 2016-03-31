@@ -7,7 +7,7 @@ module.exports = function(grunt) {
         separator: ';'
       },
       dist: {
-        dest: 'superfile.js',
+        dest: 'public/dist/superfile.js',
         src: [
           'public/client/**/*.js',
           'public/lib/**/*.js'
@@ -33,7 +33,7 @@ module.exports = function(grunt) {
     uglify: {
       target: {
         files: {
-          'superfile.js': ['superfile.js']
+          'public/dist/superfile.js': ['public/dist/superfile.js']
         }
       }
     },
