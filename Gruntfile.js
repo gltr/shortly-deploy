@@ -3,6 +3,16 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     concat: {
+      options: {
+        separator: ';'
+      },
+      dist: {
+        dest: 'superfile.js',
+        src: [
+          'public/client/**/*.js',
+          'public/lib/**/*.js'
+          ]
+      }
     },
 
     mochaTest: {
@@ -21,6 +31,11 @@ module.exports = function(grunt) {
     },
 
     uglify: {
+      target: {
+        files: {
+          'superfile.js': ['superfile.js']
+        }
+      }
     },
 
     eslint: {
@@ -36,7 +51,7 @@ module.exports = function(grunt) {
       scripts: {
         files: [
           'public/client/**/*.js',
-          'public/lib/**/*.js',
+          'public/lib/**/*.js'
         ],
         tasks: [
           'concat',
@@ -96,8 +111,9 @@ module.exports = function(grunt) {
     'mochaTest'
   ]);
 
+
   // concatenate and uglify
-  grunt.registerTask('build', [ 'shell'  ]);
+  grunt.registerTask('build', [ 'concat', 'uglify' ]);
 
   grunt.registerTask('upload', function(n) {
     if (grunt.option('prod')) {
