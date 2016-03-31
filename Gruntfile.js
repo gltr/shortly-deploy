@@ -74,7 +74,7 @@ module.exports = function(grunt) {
         command: 'git commit -m "grunt deploy auto-commit"'
       },
       pushlive: {
-      	command: 'git push live master'
+      	command: 'git push origin master'
       }
     },
   });
