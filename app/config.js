@@ -8,44 +8,44 @@ var Schema = mongoose.Schema;
 mongoose.connect('mongodb://localhost/mongotest');
 
 var db = mongoose.connection;
+ 
+db.urlSchema = mongoose.Schema({
+  id: Number,
+  url: String,
+  baseUrl: String,
+  code: String,
+  title: String,
+  visits: Number
+});
+
+db.userSchema = mongoose.Schema({
+  id: Number,
+  username: String,
+  password: String
+});
 
 db.on('error', console.error.bind(console, 'connection error: '));
 db.once('open', function() {
-  var urlSchema = mongoose.Schema({
-    id: Number,
-    url: String,
-    baseUrl: String,
-    code: String,
-    title: String,
-    visits: Number
-  });
-
-  var userSchema = mongoose.Schema({
-    id: Number,
-    username: String,
-    password: String
-  });
-
 });
 
-urlSchema.methods.init = function(model, attrs, options) {
+db.urlSchema.methods.initialize = function(model, attrs, options) {
   var shasum = crypto.createHash('sha1');
   shasum.update(model.get('url'));
   model.set('code', shasum.digest('hex').slice(0, 5));
 };
 
 
-userSchema.methods.init = function() {
+db.userSchema.methods.initialize = function() {
   this.hashPassword;
 };
 
-urlSchema.methods.comparePassword = function(attemptedPassword, callback) {
+db.userSchema.methods.comparePassword = function(attemptedPassword, callback) {
   bcrypt.compare(attemptedPassword, this.get('password'), function(err, isMatch) {
     callback(isMatch);
   });
 };
 
-urlSchema.methods.hashPassword = function() {
+db.userSchema.methods.hashPassword = function() {
   var cipher = Promise.promisify(bcrypt.hash);
   return cipher(this.get('password'), null, null).bind(this)
     .then(function(hash) {
@@ -53,21 +53,12 @@ urlSchema.methods.hashPassword = function() {
     });
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 module.exports = db;
 
+//Possible to-do in afternoon session:
+  //add models here or to model specific files
+    //if this file, need to change links on request handler, probably
+    //else, nothing... so we should probably put it in the model specific files
 
 
 //create a connection to mongodb instance

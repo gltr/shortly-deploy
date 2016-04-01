@@ -2,11 +2,13 @@ var db = require('../config');
 var bcrypt = require('bcrypt-nodejs');
 var Promise = require('bluebird');
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
+var User = mongoose.model('User', db.userSchema);
 
-var User = db.Model.extend({
-  tableName: 'users',
-  hasTimestamps: true,
+// var User = db.Model.extend({
+//   tableName: 'users',
+//   hasTimestamps: true,
   // initialize: function() {
   //   this.on('creating', this.hashPassword);
   // },
@@ -22,6 +24,6 @@ var User = db.Model.extend({
   //       this.set('password', hash);
   //     });
   // }
-});
+// });
 
 module.exports = User;
